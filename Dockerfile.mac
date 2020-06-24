@@ -1,3 +1,4 @@
+FROM kernel-module:latest as module
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -9,3 +10,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 CMD ["sleep", "infinity"]
+
+COPY --from=module /wireguard.ko /wireguard.ko
+COPY wg0.conf /etc/wireguard/

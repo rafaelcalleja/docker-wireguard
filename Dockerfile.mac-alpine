@@ -1,0 +1,9 @@
+FROM kernel-module:latest as module
+FROM alpine
+
+RUN apk add --no-cache wireguard-tools nano iproute2
+
+CMD ["sleep", "infinity"]
+
+COPY --from=module /wireguard.ko /wireguard.ko
+COPY wg0.conf /etc/wireguard/
